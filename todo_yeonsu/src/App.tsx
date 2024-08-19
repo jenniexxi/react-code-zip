@@ -123,7 +123,7 @@ function App() {
       {showCalendar && (
         <Portal>
           <Modal
-            type="bottom"
+            type="center"
             onClickBackDrop={() => setShowCalendar(false)}
             backDropAnimation={false}
           >
