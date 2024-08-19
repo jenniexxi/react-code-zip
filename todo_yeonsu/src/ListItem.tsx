@@ -21,10 +21,9 @@ const ListItem = ({ item, deleteListItem, modifyListItem }: Props) => {
   };
 
   const onCompleteTodo = () => {
-    if (isModify) {
-    } else {
+    if (!isModify) {
       setIsDone(!isDone);
-    }
+    } 
   };
   return (
     <S.Container>
