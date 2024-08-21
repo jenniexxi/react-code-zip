@@ -20,7 +20,6 @@ const Modal = ({
   ) => {
     if (e.target === e.currentTarget) {
       e.preventDefault();
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       onClickBackDrop && onClickBackDrop();
     }
   };

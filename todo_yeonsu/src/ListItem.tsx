@@ -1,42 +1,52 @@
-import { ListItemType } from "./App";
 import { useState } from "react";
 import * as S from "./ListItem.styles";
+import dayjs from "dayjs";
+import { TodoItem } from "./api/Todo";
 
 type Props = {
-  item: ListItemType;
+  item: TodoItem;
   deleteListItem: (id: number) => void;
-  modifyListItem: (id: number, content: string) => void;
+  modifyListItem: (item: TodoItem, content: string) => void;
+  completeTodo: (item: TodoItem, isComplete: boolean) => void;
 };
 
-const ListItem = ({ item, deleteListItem, modifyListItem }: Props) => {
+const ListItem = ({
+  item,
+  deleteListItem,
+  modifyListItem,
+  completeTodo,
+}: Props) => {
   const [isModify, setIsModify] = useState(false);
-  const [isDone, setIsDone] = useState(false);
+
   const [input, setInput] = useState(item.content);
 
   const toggleModifyMode = () => {
     if (isModify) {
-      modifyListItem(item.id, input);
+      modifyListItem(item, input);
     }
     setIsModify(!isModify);
   };
 
   const onCompleteTodo = () => {
-    if (!isModify) {
-      setIsDone(!isDone);
-    } 
+    if (isModify) {
+    } else {
+      completeTodo(item, !item.completed);
+    }
   };
   return (
     <S.Container>
       <S.LeftView onClick={onCompleteTodo}>
-        <input type="checkbox" checked={isDone} readOnly />
+        <input type="checkbox" checked={item.completed} readOnly />
         <S.ModifyInput
           value={input}
           disabled={!isModify}
+          checked={item.completed}
           onChange={(e) => setInput(e.target.value)}
         />
       </S.LeftView>
-      {!isDone && (
+      {!item.completed && (
         <S.ButtonContainer>
+          <p>{dayjs(item.date).format("YYYY.MM.DD")}</p>
           <button onClick={toggleModifyMode}>
             {isModify ? "완료" : "수정"}
           </button>

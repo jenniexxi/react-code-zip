@@ -1,11 +1,12 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Test from "./test";
 
 type Props = {
-  getTodoListByDate: () => void;
+  getTodoListByDate: (date: string) => void;
   toggleCalendar: () => void;
-  selectedDate: any;
+  selectedDate: Date;
 };
 
 const DaySelector = ({
@@ -19,6 +20,10 @@ const DaySelector = ({
     setDate(dayjs(selectedDate));
   }, [selectedDate]);
 
+  useEffect(() => {
+    getTodoListByDate(date.format("YYYY-MM-DD"));
+  }, [date]);
+
   const onChangeDate = (isPrev: boolean) => {
     if (isPrev) {
       setDate(date.add(-1, "days"));
@@ -31,7 +36,7 @@ const DaySelector = ({
     <Container>
       <ArrowButton onClick={() => onChangeDate(true)}>&lt;</ArrowButton>
       <DayTextWrap onClick={toggleCalendar}>
-        {dayjs(date).format("YYYY.MM.DD")}
+        {dayjs(date).format("YYYY-MM-DD")}
       </DayTextWrap>
       <ArrowButton onClick={() => onChangeDate(false)}>&gt;</ArrowButton>
     </Container>
