@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as S from "./ListItem.styles";
 import dayjs from "dayjs";
-import { TodoItem } from "./api/Todo";
+import { TodoItem } from "../../../api/Todo";
 
 type Props = {
   item: TodoItem;
